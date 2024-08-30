@@ -1,0 +1,48 @@
+{
+  "name": "firma-virtual-facetec",
+  "version": "1.0.0",
+  "description": "Validación Biometrica",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "live-server --host=localhost --port=8000",
+    "build:css": "tailwindcss build ./src/css/style.css -o ./dist/output.css",
+    "build:dev": "webpack --mode=development --node-env=development && npm run build:css",
+    "build:prod": "webpack --mode=production --node-env=production && npm run build:css",
+    "watch": "webpack --watch",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md,html}\""
+  },
+  "author": "Daniel (Rezpo) Rebolledo",
+  "dependencies": {
+    "live-server": "^1.2.1",
+    "pdfjs-dist": "^4.0.189",
+    "url": "^0.11.3",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/node": "^20.8.6",
+    "@types/webpack": "^5.28.3",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "@webpack-cli/generators": "^3.0.7",
+    "autoprefixer": "^10.4.16",
+    "css-loader": "^6.8.1",
+    "dotenv-webpack": "^8.0.1",
+    "eslint": "^8.52.0",
+    "eslint-plugin-html": "^7.1.0",
+    "postcss": "^8.4.31",
+    "postcss-loader": "^7.3.3",
+    "prettier": "3.0.3",
+    "source-map-loader": "^4.0.1",
+    "style-loader": "^3.3.3",
+    "tailwindcss": "^3.3.5",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "keywords": [],
+  "license": "ISC"
+}

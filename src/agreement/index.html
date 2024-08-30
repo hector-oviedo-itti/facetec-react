@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Verificación biométrica - Firma Virtual</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="../../favicon-icon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i");
+    </style>
+    <!-- <link rel="stylesheet" href="./css/style.css?v1"> -->
+    <link href="../../dist/output.css" rel="stylesheet" />
+    <!-- Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Declaración de acuerdos en video - Firma Virtual"
+    />
+  </head>
+  <body
+    class="flex flex-col overflow-y-auto bg-gradient-to-br from-almostwhite-200 to-almostwhite-50"
+  >
+    <div
+      id="fv-loader-curtain"
+      class="fixed invisible z-50 min-h-screen min-w-full flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 -960 960 960"
+        width="24"
+        class="animate-spin h-12 w-12 fill-atmosphere-400 absolute z-10"
+      >
+        <path
+          d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z"
+        />
+      </svg>
+      <div class="bg-white/70 w-full h-full absolute backdrop-blur-md"></div>
+    </div>
+    <div
+      id="fv-modal-error"
+      class="absolute invisible z-50 min-h-screen min-w-full flex items-center justify-center"
+    >
+      <div class="rounded-lg p-4 bg-white shadow-2xl absolute z-10">
+        <h2 class="text-lg font-bold text-center">Ha ocurrido un error</h2>
+        <div class="my-4 mb-6 max-w-lg">
+          <p>
+            Parece que ha habido un error en nuestros servicios, por favor
+            intente de nuevo.
+          </p>
+        </div>
+        <button
+          id="fv-modal-error-button"
+          class="bg-atmosphere-400 px-6 py-3 rounded-md text-white font-bold hover:bg-atmosphere-500 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+        >
+          Entendido
+        </button>
+      </div>
+      <div class="bg-white/70 w-full h-full absolute backdrop-blur-md"></div>
+    </div>
+    <div
+      class="flex items-center justify-center flex-col p-4 snap-y scroll-smooth"
+    >
+      <div
+        class="mx-auto p-4 rounded-lg prose lg=prose-xl flex flex-col justify-center border border-almostwhite-200 shadow-xl"
+      >
+        <div class="mx-auto">
+          <div>
+            <p class="text-left">
+              Deberás registrarte en un vídeo mencionando lo siguiente: Con
+              total voluntad, yo,
+              <strong
+                >[Nombre completo + debes mostrar tu Identificación], en la
+                fecha de hoy [indica la Fecha], firmo el documento [Nombre del
+                documento] junto con [Nombres de los demás firmantes]</strong
+              >
+            </p>
+            <div class="mb-4">
+              <p class="text-left">
+                <strong>Importante:</strong> Debes mostrar tu identificación
+                durante la grabación del video y esta debe estar vigente.
+                Dispones de un máximo de 60 segundos para grabar el vídeo,
+                puedes intentarlo tantas veces como desees.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto overflow-hidden">
+          <video
+            id="fv-video-player"
+            controls
+            width="640"
+            class="rounded-lg my-0"
+          ></video>
+        </div>
+        <div class="flex items-center justify-center flex-col mt-6 mx-auto">
+          <div class="flex flex-row mx-auto gap-2">
+            <h2 id="fv-recording-timer" class="text-3xl my-0">60</h2>
+            <span class="font-semibold">seg</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 mx-auto">
+          <div class="flex flex-row gap-4 items-center justify-center my-4">
+            <button
+              id="fv-start-recording"
+              class="transition ease-in-out bg-autumn-200 w-24 p-2 rounded-md flex flex-col items-center justify-center gap-2 hover:-translate-y-1 disabled:opacity-50 disabled:text-almostwhite-600"
+            >
+              <img
+                src="../assets/icons/radio_button_checked.svg"
+                alt="Iniciar grabación"
+                class="my-0 mx-auto"
+              />
+              <small class="font-bold">Grabar</small>
+            </button>
+            <button
+              id="fv-stop-recording"
+              class="transition ease-in-out bg-atmosphere-300 w-24 p-2 rounded-md flex flex-col items-center justify-center gap-2 hover:-translate-y-1 disabled:opacity-50 disabled:text-almostwhite-600 disabled:bg-atmosphere-200"
+            >
+              <img
+                src="../assets/icons/stop_circle.svg"
+                alt="Detener grabación"
+                class="my-0 mx-auto"
+              />
+              <small class="font-bold">Detener</small>
+            </button>
+            <button
+              id="fv-delete-recording"
+              class="transition ease-in-out bg-autumn-100 w-24 p-2 rounded-md flex flex-col items-center justify-center gap-2 hover:-translate-y-1 disabled:opacity-50 disabled:text-almostwhite-600"
+            >
+              <img
+                src="../assets/icons/delete.svg"
+                alt="Borrar grabación"
+                class="my-0 mx-auto"
+              />
+              <small class="font-bold">Borrar</small>
+            </button>
+          </div>
+          <button
+            id="fv-confirm-recording"
+            class="bg-atmosphere-400 px-6 py-3 rounded-md text-white font-bold hover:bg-atmosphere-500 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+          >
+            Confirmar y finalizar
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <script type="module" src="./scripts.js"></script> -->
+    <script type="text/javascript" src="../../dist/App.js"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Verificación biométrica - Firma Virtual</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="../../favicon-icon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i");
+    </style>
+    <!-- <link rel="stylesheet" href="./css/style.css?v1"> -->
+    <link href="../../dist/output.css" rel="stylesheet" />
+    <!-- Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Declaración de acuerdos en video - Firma Virtual"
+    />
+  </head>
+  <body
+    class="min-h-screen flex flex-col overflow-y-auto bg-gradient-to-br from-almostwhite-200 to-almostwhite-50"
+  >
+    <div
+      id="fv-loader-curtain"
+      class="absolute invisible z-50 min-h-screen min-w-full flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 -960 960 960"
+        width="24"
+        class="animate-spin h-12 w-12 fill-atmosphere-400 absolute z-10"
+      >
+        <path
+          d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z"
+        />
+      </svg>
+      <div class="bg-white/70 w-full h-full absolute backdrop-blur-md"></div>
+    </div>
+    <div
+      id="fv-modal-error"
+      class="absolute invisible z-50 min-h-screen min-w-full flex items-center justify-center"
+    >
+      <div class="rounded-lg p-4 bg-white shadow-2xl absolute z-10">
+        <h2 class="text-lg font-bold text-center">Ha ocurrido un error</h2>
+        <div class="my-4 mb-6 max-w-lg">
+          <p>
+            Parece que ha habido un error en nuestros servicios, por favor
+            intente de nuevo.
+          </p>
+        </div>
+        <button
+          id="fv-modal-error-button"
+          class="bg-atmosphere-400 px-6 py-3 rounded-md text-white font-bold hover:bg-atmosphere-500 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+        >
+          Entendido
+        </button>
+      </div>
+      <div class="bg-white/70 w-full h-full absolute backdrop-blur-md"></div>
+    </div>
+    <div
+      id="fv-modal-cancel-verification"
+      class="absolute invisible z-50 min-h-screen min-w-full flex items-center justify-center"
+    >
+      <div class="rounded-lg p-4 bg-white shadow-2xl absolute z-10">
+        <h2 class="text-lg font-bold text-center">
+          ¿Desea cancelar la verificación?
+        </h2>
+        <div class="my-4 mb-6 max-w-lg">
+          <p>
+            Considere que al cancelar la firma, se perderá el progreso de
+            verificación y, si desea firmar posteriormente, deberá verificar su
+            identidad de nuevo.
+          </p>
+        </div>
+        <div class="flex items-center justify-center gap-x-2">
+          <button
+            id="fv-modal-ok-cancel-button"
+            class="bg-atmosphere-400 px-6 py-3 rounded-md text-white font-bold hover:bg-atmosphere-500 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+          >
+            Si
+          </button>
+          <button
+            id="fv-modal-no-cancel-button"
+            class="bg-autumn-200 px-6 py-3 rounded-md text-white font-bold hover:bg-autumn-300 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+          >
+            No
+          </button>
+        </div>
+      </div>
+      <div class="bg-white/70 w-full h-full absolute backdrop-blur-md"></div>
+    </div>
+    <div class="w-full min-h-screen scroll-smooth flex flex-col md:flex-row">
+      <div class="w-full md:w-6/12 p-6 flex justify-center items-center flex-col">
+        <div class="mx-auto">
+          <div>
+            <h4 class="text-center text-2xl font-bold mb-4">
+              Enhorabuena, hemos logrado verificar su identidad con éxito
+            </h4>
+            <div class="mb-4 text-justify">
+              <div class="mb-4">
+                <p>
+                  Este es el contrato en el que participa, le invitamos a
+                  revisar detenidamente su contenido y a firmarlo si todo parece
+                  estar en orden. Si encuentra algo fuera de lugar o tiene
+                  alguna duda, le recomendamos que se comunique con el creador
+                  de este contrato o su gestor. Si decide rechazar la firma,
+                  deberá reiniciar el proceso de verificación.
+                </p>
+              </div>
+              <label class="font-bold">
+                <input
+                  type="checkbox"
+                  id="fv-signature-agreement"
+                  value="signature_agreement"
+                />
+                <!-- Descomentar los enlaces solo si lo requiere -->
+                Declaro que he leído detenidamente este contrato, el aviso de
+                privacidad
+                <!-- <a
+                  target="_blank"
+                  href="https://firmavirtual.mx/wp-content/uploads/2024/01/Aviso-de-Privacidad-Firma-Virtual-01-2024-VF.pdf"
+                  style="cursor: pointer; color: rgb(59 130 246)"
+                  >(Por favor haga click aqui para ver el aviso de
+                  privacidad)</a
+                > -->
+                y los términos y condiciones de uso.
+                <!-- <a
+                  target="_blank"
+                  href="https://firmavirtual.mx/wp-content/uploads/2024/01/Terminos-y-Condiciones-FIRMAVIRTUAL-2024-1-version.pdf"
+                  style="cursor: pointer; color: rgb(59 130 246)"
+                  >(Por favor haga click aqui para ver los terminos y
+                  condiciones de uso)</a
+                > -->
+              </label>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 mx-auto mt-2">
+            <button
+              id="fv-sign-contract"
+              class="bg-atmosphere-400 px-6 py-3 rounded-md text-white font-bold hover:bg-atmosphere-500 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+            >
+              Firmar
+            </button>
+            <button
+              id="fv-cancel-sign"
+              class="bg-transparent px-6 py-3 rounded-md font-bold hover:bg-almostwhite-200 disabled:bg-almostwhite-300 disabled:text-almostwhite-600"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="w-full md:w-6/12 min-h-36 relative">
+        <iframe id="fv-pdf-container"></iframe>
+      </div>
+    </div>
+    <script type="text/javascript" src="../../dist/App.js"></script>
+  </body>
+</html>

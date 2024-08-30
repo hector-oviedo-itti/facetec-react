@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verificación biométrica - Firma Virtual</title>
+    <link rel="icon" href="./favicon-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./dist/output.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          colors: {
+            white: "#FFFFFF",
+            atmosphere: "#00ADEA",
+            almostwhite: "#F2F5F8",
+            pimp: "#7239ea",
+            pavement: "#b4bacc",
+            grass: "#5cc858",
+            autumn: "#fa8724",
+          },
+          fontFamily: {
+            sans: ["Graphik", "sans-serif"],
+            serif: ["Merriweather", "serif"],
+          },
+          screens: {
+            sm: "640px",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+            "2xl": "1536px",
+          },
+          extend: {
+            spacing: {
+              "8xl": "96rem",
+              "9xl": "128rem",
+            },
+            borderRadius: {
+              "4xl": "2rem",
+            },
+            colors: {
+              gray: {
+                50: "#CECCCC",
+                100: "#ADAAAA",
+                200: "#6B6766",
+                300: "#292722",
+                400: "#080700",
+                500: "#080700",
+                600: "#070700",
+              },
+              atmosphere: {
+                50: "#88FDC1",
+                100: "#66F9CC",
+                200: "#44F5E1",
+                300: "#00ADEA",
+                400: "#006CD0",
+                500: "#0035B6",
+                600: "#00099A",
+              },
+              almostwhite: {
+                50: "#F7FBFB",
+                100: "#F4F7F9",
+                200: "#F2F5F8",
+                300: "#D4D5D9",
+                400: "#B5B6BA",
+                500: "#98979B",
+                600: "#7A797C",
+              },
+              pimp: {
+                50: "#9DC5FB",
+                100: "#839FF8",
+                200: "#6651EF",
+                300: "#7239EA",
+                400: "#852FD0",
+                500: "#9026B4",
+                600: "#931E98",
+              },
+              pimp: {
+                50: "#9DC5FB",
+                100: "#839FF8",
+                200: "#6651EF",
+                300: "#7239EA",
+                400: "#852FD0",
+                500: "#9026B4",
+                600: "#931E98",
+              },
+              pavement: {
+                50: "#DBE8E8",
+                100: "#D1DEE1",
+                200: "#b4bacc",
+                300: "#9D9EB3",
+                400: "#8A869A",
+                500: "#767080",
+                600: "#615967",
+              },
+              grass: {
+                50: "#DCE9AE",
+                100: "#A6D982",
+                200: "#5CC858",
+                300: "#4BB15D",
+                400: "#3F9962",
+                500: "#338162",
+                600: "#28685C",
+              },
+              autumn: {
+                50: "#FF92B2",
+                100: "#FF7583",
+                200: "#FE733E",
+                300: "#FA8724",
+                400: "#DE9F1C",
+                500: "#BFAE15",
+                600: "#959F10",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="flex flex-1 items-center justify-center">
+    <div
+      id="fv-loader"
+      class="flex flex-col items-center justify-center p-12 gap-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 -960 960 960"
+        width="24"
+        class="animate-spin h-12 w-12 mr-3 fill-atmosphere-400 mb-12"
+      >
+        <path
+          d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z"
+        />
+      </svg>
+      <!-- <img
+        src="./src/assets/img/fv-logo.svg"
+        class="w-2/5 mx-auto"
+        alt="Verificación biométrica - Firma Virtual"
+      /> -->
+      <p class="text-gray-900">
+        Estamos procesando sus datos, esto puede tomar un momento, por favor
+        tenga paciencia.
+      </p>
+    </div>
+    <div
+      id="fv-no-params-message"
+      class="flex item-center justify-center flex-col gap-4 hidden"
+    >
+      <!-- <img
+        src="./src/assets/img/fv-logo.svg"
+        class="w-2/5 mx-auto mb-4"
+        alt="Verificación biométrica - Firma Virtual"
+      /> -->
+      <h5 class="text-2xl font-extrabold">¡Ups! Algo ha pasado</h5>
+      <p class="text-gray-900">
+        Por favor, confirme que es el firmante a ser verificado o intente de
+        nuevo en unos minutos.
+      </p>
+    </div>
+    <a href="./src/index.html" class="text-grass-200"></a>
+    <script type="text/javascript" src="./home.scripts.js"></script>
+  </body>
+</html>
